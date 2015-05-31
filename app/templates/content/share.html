@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link href="{{STATIC_URL}}content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/style.css" rel="stylesheet" />
+    <script src="{{STATIC_URL}}content/js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/script.js"></script>
+</head>
+<body>
+    <div id="page">
+        {#头部开始#}
+        <div id="header">
+            {#导航开始#}
+            <nav class="navbar navbar-default">
+                <div id="nav_main">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="navbar-brand">文学界</span>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="/share.html">分享 <span class="sr-only">(current)</span></a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right  user">
+                                {% if username %}
+                                    <div id="user_span">你好 {{username}}</div>
+                                {% else %}
+                                    <li><button type="button" data-toggle="modal" data-target=".login" class="btn btn-default">登陆</button></li>
+                                    <li><button type="button" data-toggle="modal" data-target=".register" class="btn btn-default">注册</button></li>
+                                {% endif %}
+                            </ul>
+                            {#登陆框开始#}
+                            <div class="modal fade login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title"><strong>用户登录</strong></h4>
+                                        </div>
+                                        <form action="/login.html" method="post">
+                                            <div class="modal-body">
+                                                <div class="input-group" style="margin:10px 10px 20px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">用户名</span>
+                                                    <input type="text" class="form-control" name="username" id="username" style="width:300px;">&nbsp;&nbsp;
+                                                </div>
+                                                <div class="input-group" style="margin:0px 10px 0px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">密&nbsp;&nbsp;&nbsp;码</span>
+                                                    <input type="password" class="form-control" name="password" id="password" style="width:300px;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" id="login">登录</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {#登陆框结束#}
+                            {#注册框开始#}
+                            <div class="modal fade register" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title"><strong>用户注册</strong></h4>
+                                        </div>
+                                        <form action="/Admin/Index" method="post">
+                                            <div class="modal-body">
+                                                <div class="input-group" style="margin:10px 10px 20px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">用户名</span>
+                                                    <input type="text" class="form-control" name="r_username" id="username" style="width:300px;">&nbsp;&nbsp;
+                                                </div>
+                                                <div class="input-group" style="margin:0px 10px 0px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">密&nbsp;&nbsp;&nbsp;码</span>
+                                                    <input type="password" class="form-control" name="r_password" id="r_password" style="width:300px;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" id="register">注册</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {#注册框结束#}
+                            {#状态框开始#}
+                            <div class="modal fade status">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">信息</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p id="message"></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {#状态框结束#}
+                            <form class="navbar-form navbar-left header_form" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Search">
+                                </div>
+                                <button type="submit" class="btn btn-default">搜索</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            {#导航结束#}
+        </div>
+        {#头部结束#}
+        {#主体开始#}
+        <div id="context">
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">书名</span>
+              <input type="text" class="form-control" id="book_title" placeholder="书名" aria-describedby="sizing-addon1">
+            </div>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">作者</span>
+              <input type="text" id="book_author" class="form-control" placeholder="作者" aria-describedby="sizing-addon1">
+            </div>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">封面</span>
+              <input type="text" id="book_image" class="form-control" placeholder="封面" aria-describedby="sizing-addon1">
+               <span class="input-group-addon" id="file-span">上传图片</span>
+                <form target="iframe" style="display:none"  action="update.html" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="image" id="file" />
+                    <input type="submit" id="update_file" />
+                </form>
+                <iframe name="iframe" id="iframe" style="display:none" >
+                </iframe>
+            </div>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">简介</span>
+              <textarea type="text" id="book_introduction" class="form-control textarea" placeholder="简介" aria-describedby="sizing-addon1"></textarea>
+            </div>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">书感</span>
+              <textarea type="text" id="book_recommend" class="form-control textarea rem" placeholder="书感" aria-describedby="sizing-addon1"></textarea>
+            </div>
+
+            <div class="input-group input-group-lg">
+              <span class="input-group-addon" id="sizing-addon1">在线地址</span>
+              <input type="text" id="book_line" class="form-control" placeholder="在线地址" aria-describedby="sizing-addon1">
+            </div>
+
+             <button type="button" class="btn btn-primary btn-lg btn-share">分享</button>
+        </div>
+        {#主体结束#}
+        {#尾部开始#}
+        <div id="footer">
+            &copy;2015 版权所有 <a href="http://www.liguifa.wang">作者网站</a>
+        </div>
+        {#尾部结束#}
+    </div>
+</body>
+</html>
