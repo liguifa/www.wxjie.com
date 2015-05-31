@@ -15,6 +15,8 @@
     <div id="page">
         {#头部开始#}
         <div id="header">
+            {#头部开始#}
+        <div id="header">
             {#导航开始#}
             <nav class="navbar navbar-default">
                 <div id="nav_main">
@@ -31,6 +33,7 @@
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
                                 <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="/share.html">分享 <span class="sr-only">(current)</span></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right  user">
                                 {% if username %}
@@ -133,7 +136,7 @@
 				<header class="article-info clearfix">
   					<h1 itemprop="name">{{book.book_title}}</h1>
   					<p class="article-author">By
-						<a href="https://plus.google.com/111190881341800841449?rel=author" title="WuChong" target="_blank" itemprop="author">WuChong</a>
+						<a href="https://plus.google.com/111190881341800841449?rel=author" title="WuChong" target="_blank" itemprop="author">{{context_user.user_username}}</a>
 					</p>
 					<p class="article-time">
     				<time datetime="2015-05-22T14:22:20.000Z" itemprop="datePublished"><span class="glyphicon glyphicon glyphicon-time" aria-hidden="true"></span> 发表于 {{book.book_time}}</time>
@@ -165,11 +168,11 @@
 			<nav>
   <ul class="pager">
     {% if next_book %}
-    <li class="previous"><a href="/context_id_{{next_book.book_title}}.html"><span aria-hidden="true">&larr;</span> {{next_book.book_title}} 下一篇</a></li>
+    <li class="previous"><a href="/context_id_{{next_book.book_id}}.html"><span aria-hidden="true">&larr;</span> {{next_book.book_title}} 上一篇</a></li>
     {% endif %}
-    <li><a href="{{book.book_line}}">在线阅读</a></li>
+    <li><a href="{{book.book_line}}" target="_blank">在线阅读</a></li>
     {% if previous_book %}
-    <li class="next"><a href="/context_id_{{previous_book.book_title}}.html">上一篇 {{previous_book.book_title}} <span aria-hidden="true">&rarr;</span></a></li>
+    <li class="next"><a href="/context_id_{{previous_book.book_id}}.html">下一篇 {{previous_book.book_title}} <span aria-hidden="true">&rarr;</span></a></li>
     {% endif %}
   </ul>
 </nav>

@@ -66,6 +66,12 @@ $(document).ready(function(){
 		$('.status').modal('show');
 	});
 	$(".btn-share").click(function(){
+		if(!$.cookie('username'))
+		{
+			$("#message").text("请先登陆！");
+			$('.status').modal('show');
+			return 0;
+		}
 		$("#message").text("提交中...");
 		$('.status').modal('show');
 		$.ajax({
@@ -81,7 +87,9 @@ $(document).ready(function(){
 			},
 			success:function(data)
 			{
-				if(data.status==1)
+				data=eval("("+data+")");
+				alert(data);
+				if(data.status=="1")
 				{
 					$("#message").text("提交成功!");
 					$('.status').modal('show');
@@ -116,4 +124,48 @@ function updateCall()
 			$('.status').modal('show');
 		}
 	} 
+}
+
+function pagination(pageIndex,pageCount,urlTpl)
+{
+	var html="";
+	if(parseInt(pageIndex)==1)
+	{
+		html+="<li><span><</span></li>";
+	}
+	else
+	{
+		html+="<li><a href='"+urlTpl.replace("@",parseInt(pageIndex)-1)+"'><</a></li>";
+	}
+
+	var pageMin=1;
+	if(parseInt(pageIndex)>=4)
+	{
+		pageMin=parseInt(pageIndex)-2;
+	}
+
+	for(var i=pageMin;i<=parseInt(pageCount)&&i<=parseInt(pageIndex)+4;i++)
+	{
+		if(i==parseInt(pageIndex))
+		{
+			html+="<li><span class='active'>"+pageIndex+"</span></li>";
+		}
+		else
+		{
+			html+="<li><a href='"+urlTpl.replace("@",parseInt(i))+"'>"+i+"</a></li>";
+		}
+	}
+
+	if(parseInt(pageIndex)==parseInt(pageCount))
+	{
+		html+="<li><span>最后一页</span></li>";
+		html+="<li><span>></span></li>";
+	}
+	else
+	{
+		html+="<li><a href='"+urlTpl.replace("@",parseInt(pageCount))+"'>最后一页</a></li>"
+		html+="<li><a href='"+urlTpl.replace("@",parseInt(pageIndex)+1)+"'>></span></li>";
+	}
+
+	document.write(html);
 }

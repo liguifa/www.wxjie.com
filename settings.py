@@ -1,6 +1,6 @@
 # Django settings for tt project.
 from os import path
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 PROJECT_ROOT = path.dirname(path.abspath(path.dirname(__file__)))
 
@@ -55,7 +55,7 @@ USE_L10N = True
 STATIC_ROOT = path.join(PROJECT_ROOT, 'app/static').replace('\\', '/')
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'static/'
+STATIC_URL = '/app/static/'
 
 # URL prefix for admin static files -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
@@ -64,7 +64,7 @@ ADMIN_MEDIA_PREFIX = ''
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    
+    ('app/static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -96,7 +96,7 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = ( 
-
+    ('app/templates')
 )
 
 INSTALLED_APPS = (
@@ -106,7 +106,6 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:

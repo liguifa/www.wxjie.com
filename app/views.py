@@ -15,6 +15,7 @@ import hashlib
 def index(request):
     assert isinstance(request, HttpRequest)
     b=book()
+    pageIndex=1 if parameter.getParameter(request,"id")==0 else parameter.getParameter(request,"id")
     try:
     	u=request.COOKIES["username"]
     except Exception as err:
@@ -23,24 +24,29 @@ def index(request):
         'content/index.html',
         context_instance = RequestContext(request,
         {
-            'books':b.select(1 if parameter.getParameter(request,"page")==0 else parameter.getParameter(request,"page"),30),
-        	'username' :u
+            'books':b.select(pageIndex,30),
+        	'username' :u,
+        	'pageCount':b.getPageCount(30),
+        	'pageIndex':pageIndex
         }))
 def context(request):
 	assert isinstance(request,HttpRequest)
 	b=book()
+	u=user()
+	b_info=b.find(parameter.getParameter(request,"id"))
 	try:
-		u=request.COOKIES["username"]
+		username=request.COOKIES["username"]
 	except Exception as err:
-		u=False
+		username=False
 	return render(request,
 		'content/context.html',
 		context_instance = RequestContext(request,
 		{
-			'book':b.find(parameter.getParameter(request,"id")),
-			'next_book':b.findNext(parameter.getParameter(request,"id")),
-			'previous_book':b.findPrevious(parameter.getParameter(request,"id")),
-			'username' :u
+			'book':b_info,
+			'next_book':b.findNext(int(parameter.getParameter(request,"id"))),
+			'previous_book':b.findPrevious(int(parameter.getParameter(request,"id"))),
+			'username' :username,
+			'context_user':u.getUserInfo(b_info.book_username)
 		}))
 def login(request):
 	assert isinstance(request,HttpRequest)
@@ -92,7 +98,7 @@ def update(request):
 			img = parser.close()
 			m=hashlib.md5()
 			m.update(str(time.time()))
-			img.save("app/static/updata/images/"+m.hexdigest()+".jpg") 
+			img.save("/static/updata/images/"+m.hexdigest()+".jpg") 
 		return HttpResponse('{"status":1,"file":"'+"app/static/updata/images/"+m.hexdigest()+".jpg"+'"}');
 	except Exception as err:
 		return HttpResponse('{"status":0}');

@@ -8,6 +8,7 @@
     <link href="{{STATIC_URL}}content/css/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="{{STATIC_URL}}content/css/style.css" rel="stylesheet" />
     <script src="{{STATIC_URL}}content/js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/jquery.cookie.js"></script>
     <script src="{{STATIC_URL}}content/js/bootstrap.min.js"></script>
     <script src="{{STATIC_URL}}content/js/script.js"></script>
 </head>
@@ -30,8 +31,8 @@
                         </div>
                         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
-                                <li><a href="/share.html">分享 <span class="sr-only">(current)</span></a></li>
+                                <li><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                                <li  class="active"><a href="/share.html">分享 <span class="sr-only">(current)</span></a></li>
                             </ul>
                             <ul class="nav navbar-nav navbar-right  user">
                                 {% if username %}

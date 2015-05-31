@@ -136,7 +136,7 @@
                     <tr>
                         <th>封面</th>
                         <th>简介</th>
-                        <th>推荐理由</th>
+                        <th>书感</th>
                         <!-- <th>参与人</th> -->
                     </tr>
                 </thead>
@@ -177,14 +177,9 @@
             {#分页开始#}
             <nav>
                 <ul class="pagination context_page">
-                    <li><a href="#"><</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li><a href="#">最后一页</a></li>
-                    <li><a href="#">></a></li>
+                <script type="text/javascript">
+                    pagination({{pageIndex}},{{pageCount}},"/index_id_@.html");
+                </script>
                 </ul>
             </nav>
             {#分页结束#}

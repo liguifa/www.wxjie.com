@@ -33,3 +33,5 @@ class user(models.Model):
 	def getUsername(self,u_username):
 		u=user.objects.get(user_username=u_username)
 		return u.user_id
+	def getUserInfo(self,u_id):
+		return user.objects.get(user_id=u_id);
