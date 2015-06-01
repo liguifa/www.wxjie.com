@@ -1,4 +1,5 @@
 # Django settings for tt project.
+#coding:utf-8
 from os import path
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -47,6 +48,10 @@ USE_I18N = True
 # If you set this to False, Django will not format dates, numbers and
 # calendars according to the current locale
 USE_L10N = True
+
+#WEB_KEYWORDS = '文学界,文学,图书,读书感悟,图书推荐,读书,看书,书友圈'
+
+#WEB_DESCRIPTION = '文学是童年时的歌谣，少年人的梦想，中年人的创作和感悟，老年人的回忆和感触……文学界---文学爱好者的家！'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files

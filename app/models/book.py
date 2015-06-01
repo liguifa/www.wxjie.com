@@ -15,7 +15,7 @@ class book(models.Model):
    book_line=models.CharField(max_length=100)
    def select(self,pageIndex,pageSize):
       try:
-         books=book.objects.order_by('book_time')[(int(pageIndex)-1)*pageSize:int(pageIndex)*pageSize]
+         books=book.objects.order_by('book_time').reverse()[(int(pageIndex)-1)*pageSize:int(pageIndex)*pageSize]
          return books
       except Exception as err:
          return book.objects.all()[0:0]

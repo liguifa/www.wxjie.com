@@ -12,5 +12,6 @@ urlpatterns = patterns('',
     url(r'^register.html$','app.views.register',name='register'),
     url(r'^share.html$','app.views.share',name='share'),
     url(r'^update.html$','app.views.update',name='update'),
-    url(r'^updateIn.html$','app.views.updateIn',name='updateIn')
+    url(r'^updateIn.html$','app.views.updateIn',name='updateIn'),
+    url(r'^admin/login.html','admin.views.login',name='admin.login')
 )
