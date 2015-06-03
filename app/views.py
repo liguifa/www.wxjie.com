@@ -16,18 +16,20 @@ def index(request):
     assert isinstance(request, HttpRequest)
     b=book()
     pageIndex=1 if parameter.getParameter(request,"id")==0 else parameter.getParameter(request,"id")
+    sequence=1 if parameter.getParameter(request,"sequence")==0 else parameter.getParameter(request,"sequence")
     try:
     	u=request.COOKIES["username"]
     except Exception as err:
     	u=False
     return render(request,
-        'content/index.html',
+        'app/index.html',
         context_instance = RequestContext(request,
         {
-            'books':b.select(pageIndex,30),
+            'books':b.select(pageIndex,30,sequence),
         	'username' :u,
         	'pageCount':b.getPageCount(30),
-        	'pageIndex':pageIndex
+        	'pageIndex':pageIndex,
+        	'sequence':sequence
         }))
 def context(request):
 	assert isinstance(request,HttpRequest)
@@ -39,7 +41,7 @@ def context(request):
 	except Exception as err:
 		username=False
 	return render(request,
-		'content/context.html',
+		'app/context.html',
 		context_instance = RequestContext(request,
 		{
 			'book':b_info,
@@ -83,7 +85,7 @@ def share(request):
 	except Exception as err:
 		u=False
 	return render(request,
-		'content/share.html',
+		'app/share.html',
 		context_instance = RequestContext(request,
 		{
 			'username' :u
@@ -101,7 +103,7 @@ def update(request):
 			img.save("/static/updata/images/"+m.hexdigest()+".jpg") 
 		return HttpResponse('{"status":1,"file":"'+"app/static/updata/images/"+m.hexdigest()+".jpg"+'"}');
 	except Exception as err:
-		return HttpResponse('{"status":0}');
+	 	return HttpResponse('{"status":0}');
 def updateIn(request):
 	assert isinstance(request,HttpRequest)
 	b=book()
@@ -121,3 +123,16 @@ def updateIn(request):
 			return HttpResponse('{"status":0}');
 	except Exception as err:
 		return HttpResponse('{"status":0}');
+def search(request):
+	assert isinstance(request,HttpRequest)
+	b=book()
+	key=request.REQUEST.get('key','')
+	category=request.REQUEST.get('category','')
+	return render(request,
+		'app/search.html',
+		context_instance = RequestContext(request,
+		{
+			'books':b.search(key,category),
+			'category':category,
+			'key':key
+		}))

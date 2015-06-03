@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文学界</title>
+    <link href="{{STATIC_URL}}content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/style.css" rel="stylesheet" />
+    <script src="{{STATIC_URL}}content/js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/script.js"></script>
+    <script>
+        $(document).ready(function(){
+            if("{{status}}"=="True")
+            {
+                $('.login').modal('show');
+            }
+            else
+            {
+                $("#message").text("登陆失败!用户名或密码错误");
+                $('.status').modal('show');
+            }
+        });
+    </script>
+</head>
+<body>
+    <div id="page">
+        <form action="/admin/loginIn.html" method="post">
+                            {#登陆框开始#}
+                            <div class="modal fade login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title"><strong>用户登录</strong></h4>
+                                        </div>
+                                        <form action="/login.html" method="post">
+                                            <div class="modal-body">
+                                                <div class="input-group" style="margin:10px 10px 20px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">用户名</span>
+                                                    <input type="text" class="form-control" name="username" id="username" style="width:300px;">&nbsp;&nbsp;
+                                                </div>
+                                                <div class="input-group" style="margin:0px 10px 0px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">密&nbsp;&nbsp;&nbsp;码</span>
+                                                    <input type="password" class="form-control" name="password" id="password" style="width:300px;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="submit" class="btn btn-primary" id="login">登录</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {#登陆框结束#}
+                    </form>
+                            {#状态框开始#}
+                            <div class="modal fade status">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">信息</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p id="message"></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {#状态框结束#}
+        </div>
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta content="文学界,文学名著推荐,文学作品,文学城,读书感悟,图书推荐,书友圈" name="Keywords">
+    <meta name="description" content="文学是童年时的歌谣，少年人的梦想，中年人的创作和感悟，老年人的回忆和感触……文学界---文学爱好者的家！" />
+    <title>文学界 | {{key}}</title>
+    <link href="{{STATIC_URL}}content/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="{{STATIC_URL}}content/css/style.css" rel="stylesheet" />
+    <script src="{{STATIC_URL}}content/js/jquery.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/bootstrap.min.js"></script>
+    <script src="{{STATIC_URL}}content/js/script.js"></script>
+</head>
+<body>
+    <div id="page">
+        {#头部开始#}
+        <div id="header">
+            {#导航开始#}
+            <nav class="navbar navbar-default">
+                <div id="nav_main">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                            <span class="navbar-brand">文学界</span>
+                        </div>
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav">
+                                <li class="active"><a href="/">首页 <span class="sr-only">(current)</span></a></li>
+                            </ul>
+                            <ul class="nav navbar-nav navbar-right  user">
+                                {% if username %}
+                                    <div id="user_span">你好 {{username}}</div>
+                                {% else %}
+                                    <li><button type="button" data-toggle="modal" data-target=".login" class="btn btn-default">登陆</button></li>
+                                    <li><button type="button" data-toggle="modal" data-target=".register" class="btn btn-default">注册</button></li>
+                                {% endif %}
+                            </ul>
+                            {#登陆框开始#}
+                            <div class="modal fade login" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title"><strong>用户登录</strong></h4>
+                                        </div>
+                                        <form action="/login.html" method="post">
+                                            <div class="modal-body">
+                                                <div class="input-group" style="margin:10px 10px 20px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">用户名</span>
+                                                    <input type="text" class="form-control" name="username" id="username" style="width:300px;">&nbsp;&nbsp;
+                                                </div>
+                                                <div class="input-group" style="margin:0px 10px 0px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">密&nbsp;&nbsp;&nbsp;码</span>
+                                                    <input type="password" class="form-control" name="password" id="password" style="width:300px;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" id="login">登录</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {#登陆框结束#}
+                            {#注册框开始#}
+                            <div class="modal fade register" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                            <h4 class="modal-title"><strong>用户注册</strong></h4>
+                                        </div>
+                                        <form action="/Admin/Index" method="post">
+                                            <div class="modal-body">
+                                                <div class="input-group" style="margin:10px 10px 20px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">用户名</span>
+                                                    <input type="text" class="form-control" name="r_username" id="username" style="width:300px;">&nbsp;&nbsp;
+                                                </div>
+                                                <div class="input-group" style="margin:0px 10px 0px 100px">
+                                                    <span class="input-group-addon" style="width:10px;">密&nbsp;&nbsp;&nbsp;码</span>
+                                                    <input type="password" class="form-control" name="r_password" id="r_password" style="width:300px;">
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                <button type="button" class="btn btn-primary" id="register">注册</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            {#注册框结束#}
+                            {#状态框开始#}
+                            <div class="modal fade status">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                    <h4 class="modal-title">信息</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p id="message"></p>
+                                  </div>
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            {#状态框结束#}
+                            <form action="/search.html" class="navbar-form navbar-left header_form" method="post" role="search">
+                                <div class="form-group">
+                                    <input type="text" name="key" class="form-control" value='{{key}}' placeholder="图书、作者">
+                                    <input type="hidden" name="category" value="1"/>
+                                </div>
+                                <button type="submit" class="btn btn-default">搜索</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            {#导航结束#}
+        </div>
+        {#头部结束#}
+        {#主体开始#}
+        <div id="context">
+            {#显示方法#}
+            <div class="list-controls">
+              <div class="container">
+                <ul class="nav nav-pills" id="navigation-bar">
+                    <li class="ember-view ember-ts">
+                        <a href="javascript:search(1)">图书</a>
+                    </li>
+                    <li class="ember-view ember-zj">
+                        <a href="javascript:search(2)">作家</a>
+                    </li>
+                </ul>
+                <script>
+                if(1==parseInt("{{category}}"))
+                {
+                    $(".ember-ts").addClass("active");
+                }
+                else
+                {
+                    $(".ember-zj").addClass("active");
+                }
+                </script>
+              </div>
+            </div>
+            {#方式结束#}
+            {#列表开始#}
+            <table class="table  table-striped">
+                <thead>
+                    <tr>
+                        <th>封面</th>
+                        <th>简介</th>
+                        <th>书感</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {#数据开始#}
+                    {% for book in books %}
+                    <tr class="table_tr" data-url="/context/id/{{book.book_id}}.html">
+                        <td class="table_cover">
+                            <div class="row table_row">
+                                <div class="col-xs-6 col-md-3 table_row_div">
+                                    <a href="/context/id/{{book.book_id}}.html" class="thumbnail table_row_a">
+                                        <img class="table_row_imgage" src="{{book.book_image}}" alt="{{book.book_title}}">
+                                    </a>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="table_introduction">
+                            <h3>{{book.book_title}}</h3>
+                            <span>作者：{{book.book_author}}</span>
+                            <p class="table_p table_p_introduction">
+                                {{book.book_introduction}}
+                            </p>
+                        </td>
+                        <td class="table_recommend">
+                            <p class="table_p">
+                                {{book.book_recommend}}
+                            </p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {#数据结束#}
+                </tbody>
+            </table>
+            {#列表结束#}
+            {#分页开始#}
+            <nav>
+                <ul class="pagination context_page">
+                <script type="text/javascript">
+                    pagination({{pageIndex}},{{pageCount}},"/index/id/@/sequence/{{sequence}}.html");
+                </script>
+                </ul>
+            </nav>
+            {#分页结束#}
+        </div>
+        {#主体结束#}
+        {#尾部开始#}
+        <div id="footer">
+            &copy;2015 版权所有 <a href="http://www.liguifa.wang">作者网站</a>
+        </div>
+        {#尾部结束#}
+    </div>
+</body>
+</html>

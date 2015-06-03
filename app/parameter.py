@@ -5,7 +5,7 @@ class parameter(object):
 	def getParameter(request,field):
 		url=request.get_full_path()
 		url=url.split(".html")[0]
-		p_arr=url.split('_')
+		p_arr=url.split('/')
 		i=-1
 		for p in p_arr:
 			if p == field:

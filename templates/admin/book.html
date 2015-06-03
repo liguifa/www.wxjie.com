@@ -1,0 +1,41 @@
+<table id="book" class="easyui-datagrid" data-options="fit:true,fitColumns:true,striped:true,pagination:true,rownumbers:true,nowrap:false">   
+    <thead>   
+        <tr>   
+            <th data-options="field:'face'">封面</th>
+            <th data-options="field:'title'">书名</th>
+            <th data-options="field:'author'">作者</th>
+            <th data-options="field:'username'">发布人</th>
+            <th data-options="field:'introduction'">简介</th>
+            <th data-options="field:'recommend'">书感</th>
+        </tr>   
+    </thead>   
+    <tbody>  
+        {% for book in books %} 
+        <tr>   
+            <td><img src="{{book.book_image}}" style="width:55px;height:85px,cursor:pointer;" /></td>
+            <td>{{book.book_title}}</td>
+            <td>{{book.book_author}}</td>
+            <td>{{book.book_username}}</td>
+            <td>{{book.book_introduction|truncatewords:"20" }}</td>
+            <td>{{book.book_recommend|truncatewords:20 }}</td>
+        </tr> 
+        {% endfor %}
+    </tbody>   
+</table>
+<script>
+$('#book').datagrid({
+    toolbar: [{
+        iconCls: 'icon-remove',
+        disabled:true,
+        text:'删除',
+        handler:function(){alert('编辑按钮')}
+    },'-',{
+        iconCls:'icon-search',
+        disable:true,
+        text:'查看',
+        handler:function(){}
+    }]
+});
+
+
+</script>

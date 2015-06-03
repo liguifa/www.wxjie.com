@@ -13,9 +13,10 @@ class book(models.Model):
    book_username=models.IntegerField()
    book_time=models.DateTimeField()
    book_line=models.CharField(max_length=100)
-   def select(self,pageIndex,pageSize):
+   book_clickNum=models.IntegerField()
+   def select(self,pageIndex,pageSize,sequence):
       try:
-         books=book.objects.order_by('book_time').reverse()[(int(pageIndex)-1)*pageSize:int(pageIndex)*pageSize]
+         books=book.objects.order_by('book_id').reverse()[(int(pageIndex)-1)*pageSize:int(pageIndex)*pageSize] if int(sequence)==1 else book.objects.order_by('book_clickNum').reverse()[(int(pageIndex)-1)*pageSize:int(pageIndex)*pageSize]
          return books
       except Exception as err:
          return book.objects.all()[0:0]
@@ -54,3 +55,8 @@ class book(models.Model):
    def getPageCount(self,pageSize):
       count=book.objects.count()
       return count/pageSize if count%pageSize==0 else count/pageSize+1
+   def search(self,key,category):
+      try:
+         return book.objects.filter(book_title__icontains=key) if int(category)==1 else book.objects.filter(book_author__icontains=key)
+      except Exception as err:
+         return book.objects.all()[0:0]
